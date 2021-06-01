@@ -82,7 +82,6 @@ class CoreModel
         return $statement->fetchAll( PDO::FETCH_CLASS, "Example\Models\\$Model" );
     }
 
-
     //==============================================================
     // getters ou setters des propriétés communes à tous nos Models
     //==============================================================

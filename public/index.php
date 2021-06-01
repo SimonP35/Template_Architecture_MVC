@@ -6,20 +6,21 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 
 //! Mise en commentaire des require suite à l'utilisation de la PSR-4 + autoload 
-//! Ne pas oubliez les requires nécessaires si le fichier autoload ne s'en occupe pas :
 
-// Exemple : 
+    //! Ne pas oubliez les requires nécessaires si le fichier autoload ne s'en occupe pas :
 
-// On inclus nos utilitaires
-// require_once __DIR__ . "/../app/utils/Database.php";
+    // Exemple : 
 
-// On pense a inclure le fichier qui contient la classe MainController 
-// require_once __DIR__ . "/../app/controllers/CoreController.php"; 
-// require_once __DIR__ . "/../app/controllers/MainController.php";
+    // On inclus nos utilitaires
+    // require_once __DIR__ . "/../app/utils/Database.php";
 
-// On inclus nos Models
-// require_once __DIR__ . "/../app/models/CoreModel.php";
-// require_once __DIR__ . "/../app/models/ExampleModel.php";
+    // On pense a inclure le fichier qui contient la classe MainController 
+    // require_once __DIR__ . "/../app/controllers/CoreController.php"; 
+    // require_once __DIR__ . "/../app/controllers/MainController.php";
+
+    // On inclus nos Models
+    // require_once __DIR__ . "/../app/models/CoreModel.php";
+    // require_once __DIR__ . "/../app/models/ExampleModel.php";
 
 //! MISE EN PLACE D'ALTOROUTEUR
 
@@ -48,7 +49,7 @@ $router->map( "GET", "URL/[i:id]", "ExampleController@example", "example.example
 //     "method"     => "home",
 // ] , "main.home" ); // Route home
 
-// Etape 4 : On match nos routes pour récupérer les infos de la route (on vérifie avec dump($match) (qu'une route a bien été detectée par Altorouter)
+// Etape 4 : On match nos routes pour récupérer les infos de la route (on vérifie avec dump($match) qu'une route a bien été detectée par Altorouter)
 //! Si la route n'existe pas $match vaudra "false" 
 $match = $router->match();
 
@@ -64,31 +65,31 @@ $match = $router->match();
 
 //! Mise en commentaire du Dispatcher "Home Made" suite à la mise en place d'Alto Dispatcher
 
-// if ($match === false) 
-// {
-//     //! Si $match vaut "false", et donc que la route n'existe pas (elle ne "match" pas)
-//     //! On gère notre erreur 404 ici
+    // if ($match === false) 
+    // {
+    //     //! Si $match vaut "false", et donc que la route n'existe pas (elle ne "match" pas)
+    //     //! On gère notre erreur 404 ici
 
-//     // On appelle donc une méthode error() de notre MainController ou une méthode error() d'un ErrorController
-//     $errorPage = new Example\Controllers\ErrorController;
-//     $errorPage->err404();
-//     exit(); // On arrêt le script ici afin d'éviter que la suite de notre code s'execute.
-// }
-  
-// //! Si la route existe, $match "match" et nous renvoie les informations nécessaires pour le dispatcher
-// // On utilise la fonction explode de PHP pour "découper" la chaine de caractère contenue dans $match['target'] et en faire un tableau
-// $matchArray = explode( "@", $match['target'] );
+    //     // On appelle donc une méthode error() de notre MainController ou une méthode error() d'un ErrorController
+    //     $errorPage = new Example\Controllers\ErrorController;
+    //     $errorPage->err404();
+    //     exit(); // On arrêt le script ici afin d'éviter que la suite de notre code s'execute.
+    // }
+    
+    // //! Si la route existe, $match "match" et nous renvoie les informations nécessaires pour le dispatcher
+    // // On utilise la fonction explode de PHP pour "découper" la chaine de caractère contenue dans $match['target'] et en faire un tableau
+    // $matchArray = explode( "@", $match['target'] );
 
-// // On récupère nos 2 noms
-// $controllerName = $matchArray[0]; // Nom du contrôleur
-// $methodName     = $matchArray[1]; // Nom de la méthode
+    // // On récupère nos 2 noms
+    // $controllerName = $matchArray[0]; // Nom du contrôleur
+    // $methodName     = $matchArray[1]; // Nom de la méthode
 
-// // On instancie dynamiquement un controlleur dont le nom est stocké dans la variable $controllerName
-// $controller = new $controllerName();
+    // // On instancie dynamiquement un controlleur dont le nom est stocké dans la variable $controllerName
+    // $controller = new $controllerName();
 
-// // Puis on appelle dynamiquement sa méthode dont le nom est stocké dans la variable $methodName
-// // On lui donne également toute variable passée dans l'URL se trouvant sous forme de tableau dans $match['params']
-// $controller->$methodName( $match['params'] );
+    // // Puis on appelle dynamiquement sa méthode dont le nom est stocké dans la variable $methodName
+    // // On lui donne également toute variable passée dans l'URL se trouvant sous forme de tableau dans $match['params']
+    // $controller->$methodName( $match['params'] );
 
 //! DEBUT UTILISATION ALTO DISPATCHER
 
