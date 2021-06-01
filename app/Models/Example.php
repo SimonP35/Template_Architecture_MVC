@@ -14,7 +14,7 @@
 //! namespace
 
 // Chemin de l'emplacement pour l'autoload
-namespace app\Models;
+namespace Example\Models;
 
 //! use
 

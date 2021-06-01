@@ -13,23 +13,19 @@ class ComposerStaticInitf649d853fa0273ae737cb1166238337c
     );
 
     public static $prefixLengthsPsr4 = array (
-        'a' => 
-        array (
-            'app\\' => 4,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\VarDumper\\' => 28,
         ),
+        'E' => 
+        array (
+            'Example\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'app\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app',
-        ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
@@ -42,12 +38,17 @@ class ComposerStaticInitf649d853fa0273ae737cb1166238337c
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
+        'Example\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
     );
 
     public static $classMap = array (
         'AltoRouter' => __DIR__ . '/..' . '/altorouter/altorouter/AltoRouter.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Dispatcher' => __DIR__ . '/..' . '/benoclock/alto-dispatcher/Dispatcher.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',

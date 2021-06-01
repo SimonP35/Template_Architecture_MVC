@@ -8,12 +8,12 @@
 //! namespace
 
 // Chemin de l'emplacement pour l'autoload
-namespace app\Controllers;
+namespace Example\Controllers;
 
 //! use
 
 // Modèles utilisés
-use \app\Models\Example;
+use \Example\Models\Example;
 
 class ExampleController extends CoreController
 {

@@ -14,12 +14,12 @@
 //! namespace
 
 // Chemin de l'emplacement pour l'autoload
-namespace app\Models;
+namespace Example\Models;
 
 //! use
 
 // Fichier utilisés dans ce Model
-use \app\utils\Database;
+use \Example\utils\Database;
 use \PDO;
 
 class CoreModel
@@ -52,7 +52,7 @@ class CoreModel
         $pdo = Database::getPDO();
         $sql = "SELECT * FROM `$table` WHERE `id` = $id";
         $statement = $pdo->query( $sql );
-        return $statement->fetchObject( "app\Models\{$Model}" );
+        return $statement->fetchObject( "Example\Models\\$Model" );
     }      
 
     // Méthode pour récupérer toutes les données d'une table
@@ -61,7 +61,7 @@ class CoreModel
         $pdo = Database::getPDO();            
         $sql = "SELECT * FROM `$table`";
         $statement = $pdo->query( $sql );            
-        return $statement->fetchAll( PDO::FETCH_CLASS, "app\Models\{$Model}" );
+        return $statement->fetchAll( PDO::FETCH_CLASS, "Example\Models\\$Model" );
     }
 
     // Méthode pour récupérer toutes les données d'une table dans un ordre ASC
@@ -70,7 +70,7 @@ class CoreModel
         $pdo = Database::getPDO();            
         $sql = "SELECT * FROM `$table` ORDER BY `$order` ASC";
         $statement = $pdo->query( $sql );            
-        return $statement->fetchAll( PDO::FETCH_CLASS, "app\Models\{$Model}" );
+        return $statement->fetchAll( PDO::FETCH_CLASS, "Example\Models\\$Model" );
     }
 
     // Méthode pour récupérer toutes les données d'une table dans un ordre DESC
@@ -79,7 +79,7 @@ class CoreModel
         $pdo = Database::getPDO();            
         $sql = "SELECT * FROM `$table` ORDER BY `$order` DESC";
         $statement = $pdo->query( $sql );            
-        return $statement->fetchAll( PDO::FETCH_CLASS, "$Model" );
+        return $statement->fetchAll( PDO::FETCH_CLASS, "Example\Models\\$Model" );
     }
 
 

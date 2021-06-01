@@ -8,7 +8,7 @@
 //! namespace
 
 // Chemin de l'emplacement pour l'autoload
-namespace app\Controllers;
+namespace Example\Controllers;
 
 class ErrorController extends CoreController
 {
@@ -16,8 +16,8 @@ class ErrorController extends CoreController
     //!               Méthodes
     //!===========================================
 
-    public function error()
+    public function err404()
     {
-        $this->show( "404" );
+        $this->show( "err404" );
     }
 }

@@ -26,7 +26,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 // Etape 1 : On instancie un objet AltoRouter
 $router = new AltoRouter();
 
-// Etape 2 : On précise a AltoRouter notre emplacement (le sous-dossier actuel) afin d'éviter qu'il parte du nom de domaine (localhost chez nous)
+// Etape 2 : On précise a AltoRouter notre emplacement (le sous-dossier actuel) afin d'éviter qu'il parte du nom de domaine/de la racine (localhost chez nous)
 $router->setBasePath( $_SERVER['BASE_URI'] ); // $_SERVER['BASE_URI'] Donne l'adresse absolue de notre point d'entrée
 
 // Etape 3 : Mise en place/création de nos routes ("mappage" de nos routes)
@@ -62,33 +62,41 @@ $routeInfos = $router->match();
 
 // Etape 5 : Mise en place du DISPATCHER (Celui qui instancie le bon controlleur et exécute la bonne méthode )
 
-//! Si $routeInfos vaut "true" et que donc la route existe (elle "match")
-if( $routeInfo === true ) 
-{
-    // On utilise la fonction explode de PHP pour "découper" la chaine de caractère contenue dans $routeInfo['target'] et en faire un tableau
-    $routeInfoArray = explode( "@", $routeInfo['target'] );
+//! Mise en commentaire du Dispatcher "Home Made" suite à la mise en place d'Alto Dispatcher
 
-    // On récupère nos 2 noms
-    $controllerName = $routeInfoArray[0]; // Nom du contrôleur
-    $methodName     = $routeInfoArray[1]; // Nom de la méthode
+// if ($routeInfo === false) 
+// {
+//     //! Si $routeInfos vaut "false", et donc que la route n'existe pas (elle ne "match" pas)
+//     //! On gère notre erreur 404 ici
 
-    // On instancie dynamiquement un controlleur dont le nom est stocké dans la variable $controllerName
-    $controller = new $controllerName();
+//     // On appelle donc une méthode error() de notre MainController ou une méthode error() d'un ErrorController
+//     $errorPage = new Example\Controllers\ErrorController;
+//     $errorPage->err404();
+//     exit(); // On arrêt le script ici afin d'éviter que la suite de notre code s'execute.
+// }
+  
+// //! Si la route existe, $routeInfos "match" et nous renvoie les informations nécessaires pour le dispatcher
+// // On utilise la fonction explode de PHP pour "découper" la chaine de caractère contenue dans $routeInfo['target'] et en faire un tableau
+// $routeInfoArray = explode( "@", $routeInfo['target'] );
 
-    // Puis on appelle dynamiquement sa méthode dont le nom est stocké dans la variable $methodName
-    // On lui donne également toute variable passée dans l'URL se trouvant sous forme de tableau dans $routeInfo['params']
-    $controller->$methodName( $routeInfo['params'] );
-}
-else
-{
-    //! Sinon $routeInfos vaut "false", et donc la route n'existe pas (elle ne "match" pas)
-    //! On gère notre erreur 404 ici
+// // On récupère nos 2 noms
+// $controllerName = $routeInfoArray[0]; // Nom du contrôleur
+// $methodName     = $routeInfoArray[1]; // Nom de la méthode
 
-    // On appelle donc une méthode error() de notre MainController ou une méthode error() d'un ErrorController
-    $errorPage = new app\Controllers\ErrorController();
-    $errorPage->error();
-    exit(); // On arrêt le script ici afin d'éviter que la suite de notre code s'execute.
-}
+// // On instancie dynamiquement un controlleur dont le nom est stocké dans la variable $controllerName
+// $controller = new $controllerName();
+
+// // Puis on appelle dynamiquement sa méthode dont le nom est stocké dans la variable $methodName
+// // On lui donne également toute variable passée dans l'URL se trouvant sous forme de tableau dans $routeInfo['params']
+// $controller->$methodName( $routeInfo['params'] );
+
+//! DEBUT UTILISATION ALTO DISPATCHER
+
+$dispatcher = new Dispatcher($match, 'ErrorController@err404');
+$dispatcher->setControllersNamespace('Example\Controllers');
+$dispatcher->dispatch();
+
+//! FIN UTILISATION ALTO DISPATCHER
 
 //!========================================================
 //!                     RÉSUMÉ 
@@ -98,9 +106,13 @@ $router = new AltoRouter(); // Etape 1 : On instancie un objet AltoRouter
 $router->setBasePath( $_SERVER['BASE_URI'] ); // Etape 2 : On précise a AltoRouter notre emplacement (le sous-dossier actuel) afin d'éviter qu'il parte du nom de domaine (localhost chez nous)
 $router->map( "GET", "URL", "NomDuController@nomDeLaMethode", "NomDuController-nomDeLaMethode" ); // Etape 3 : Mise en place/création de nos routes ("mappage" de nos routes)
 $routeInfos = $router->match(); // Etape 4 : On match nos routes pour récupérer les infos de la route (on vérifie avec dump($routeInfos) (qu'une route a bien été detectée par Altorouter)
-// Etape 5 : Mise en place du DISPATCHER (Celui qui instancie le bon Controller et exécute la bonne méthode )
+// Etape 5 : Mise en place du Dispatcher "Home Made" (Celui qui instancie le bon Controller et exécute la bonne méthode )
 $routeInfosArray = explode( "@ ou -", $routeInfo['target'] ); // Découpage des informations contenues dans $routeInfo['target']
 $controllerName = $routeInfosArray[0]; // Récupération du nom du Controller
 $methodName = $routeInfosArray[1]; // Récupération du nom de la méthode
 $controller = new $controllerName(); // Instanciation dynamique du Controller
 $controller->$methodName( $routeInfo['params'] ); // Instanciation dynamique de la méthode du Controller appelé avec les parties variables éventuelles de l'URL
+// Etape 5 : Mise en place d'AltoDispatcher
+$dispatcher = new Dispatcher($match, 'ErrorController@err404');
+$dispatcher->setControllersNamespace('Example\Controllers');
+$dispatcher->dispatch();

@@ -8,13 +8,13 @@
 //! namespace
 
 // Chemin de l'emplacement pour l'autoload
-namespace app\Controllers;
+namespace Example\Controllers;
 
 //! use
 
 // Modèles utilisés
-// use \app\Models\Example;
-// use \app\Models\Example;
+// use \Example\Models\Example;
+// use \Example\Models\Example;
 
 class CoreController 
 {
@@ -51,6 +51,8 @@ class CoreController
     protected function show( $viewName, $viewVars = [] ) 
     {
         //! La méthode show() permet l'affichage d'une page, elle est donc commune à plusieurs Controllers
+
+        global $router;
 
         // Si nous possèdons 2 tableaux à transmettre à notre méthode show() on peut les fusionner ici par exemple $commonViewVars (voir le __contsruct() ci-dessus)
         $viewVars = array_merge( $viewVars, $this->commonViewVars ); // $this->commonViewVars est la propriété crée lors de l'instanciation d'un Controller ()

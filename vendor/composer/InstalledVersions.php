@@ -25,24 +25,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'a358ca322b15167db1457e3612b41a9b7687991f',
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'a358ca322b15167db1457e3612b41a9b7687991f',
     ),
     'altorouter/altorouter' => 
     array (
@@ -52,6 +52,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '127f6e96998708a31ef32252985bea82e3b03888',
+    ),
+    'benoclock/alto-dispatcher' => 
+    array (
+      'pretty_version' => '1.3',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'fe7cbb66323a3d5025cc51941b1bdb6cc67be40c',
     ),
     'symfony/polyfill-mbstring' => 
     array (
