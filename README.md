@@ -10,4 +10,9 @@ Dossiers et Fichiers d'architecture MVC pouvant servir de base pour un nouveau p
 - Var_dumper
 - PSR-4
 - Méthode 
-- Fichiers Readme sur différents sujets
+- Fichiers Readme sur différents sujets.
+
+### Ajouts : 
+
+- Alto Dispatcher + readme.
+- Divers correctifs
