@@ -2,25 +2,9 @@
 
 //! FRONT CONTROLLER : POINT D'ENTRÉE DE NOTRE SITE POUR LES UTILISATEURS : index.php
 
-// Require du fichier autoload.php pour l'utilisations de nos composants (ex : var_dumper ou AlotoRouteur)
+// Require du fichier autoload.php pour l'utilisations de nos composants et le chargement automatique de nos classes contenues dans nos namespaces (voir composer.json)
+//! Ne pas oublier de faire ces namespaces au préalable, de modifier le composer.json pour le chargement de nos classes et de reboot l'autoload après
 require_once __DIR__ . "/../vendor/autoload.php";
-
-//! Mise en commentaire des require suite à l'utilisation de la PSR-4 + autoload 
-
-    //! Ne pas oubliez les requires nécessaires si le fichier autoload ne s'en occupe pas :
-
-    // Exemple : 
-
-    // On inclus nos utilitaires
-    // require_once __DIR__ . "/../app/utils/Database.php";
-
-    // On pense a inclure le fichier qui contient la classe MainController 
-    // require_once __DIR__ . "/../app/controllers/CoreController.php"; 
-    // require_once __DIR__ . "/../app/controllers/MainController.php";
-
-    // On inclus nos Models
-    // require_once __DIR__ . "/../app/models/CoreModel.php";
-    // require_once __DIR__ . "/../app/models/ExampleModel.php";
 
 //! MISE EN PLACE D'ALTOROUTEUR
 
@@ -34,70 +18,17 @@ $router->setBasePath( $_SERVER['BASE_URI'] ); // $_SERVER['BASE_URI'] Donne l'ad
 $router->map( "GET", "URL", "nomDuController@nomDeLaMethode", "nomDuController.nomDeLaMethode" ); // Exemple de Route statique (Exemple : Route d'accueil)
 $router->map( "GET", "URL/[i:id]", "ExampleController@example", "example.example" ); // Exemple de Route dynamique (Exemple : Route de catalogue)
 
-// Détail de la méthode map : 
-// 1er argument  : La méthode HTTP (Exemple : "GET")
-// 2eme argument : L'URL (ou le modèle d'URL) qui va correspondre/déclencher la route avec une partie variable possible [i:id], [a:action]
-// 3eme argument : Action réalisée si l'on demande cette route. 
-//                 On fait une chaine de caractère qui contient les infos (Séparées pas caractère spécial au choix, ici @ mais - est également possible) : 
-//                         - nom du controller
-//                         - nom de la méthode 
-// 4eme argument : Nom de la route a titre indicatif.
-
-// On peut également le faire en passant un tableau en 3eme paramètre
-// $router->map( "GET", "/", [
-//     "controller" => "MainController",
-//     "method"     => "home",
-// ] , "main.home" ); // Route home
-
 // Etape 4 : On match nos routes pour récupérer les infos de la route (on vérifie avec dump($match) qu'une route a bien été detectée par Altorouter)
 //! Si la route n'existe pas $match vaudra "false" 
 $match = $router->match();
 
-// Altorouter récupère les infos de la route qui 'match' à l'URL actuellement demandée
-// Il retourne ces informations sous la forme d'un tableau associatif à 3 entrées :
-// [
-//   "target" => Qui va contenir "l'action" a faire (le 3e parametre de ->map() ),
-//   "params" => Qui va contenir les variables de l'URL (un tableau vide si la route est statique et un tableau associatif pour une route dynamique),
-//   "name"   => Le nom de la route qui match
-// ]
-
 // Etape 5 : Mise en place du DISPATCHER (Celui qui instancie le bon controlleur et exécute la bonne méthode )
-
-//! Mise en commentaire du Dispatcher "Home Made" suite à la mise en place d'Alto Dispatcher
-
-    // if ($match === false) 
-    // {
-    //     //! Si $match vaut "false", et donc que la route n'existe pas (elle ne "match" pas)
-    //     //! On gère notre erreur 404 ici
-
-    //     // On appelle donc une méthode error() de notre MainController ou une méthode error() d'un ErrorController
-    //     $errorPage = new Example\Controllers\ErrorController;
-    //     $errorPage->err404();
-    //     exit(); // On arrêt le script ici afin d'éviter que la suite de notre code s'execute.
-    // }
-    
-    // //! Si la route existe, $match "match" et nous renvoie les informations nécessaires pour le dispatcher
-    // // On utilise la fonction explode de PHP pour "découper" la chaine de caractère contenue dans $match['target'] et en faire un tableau
-    // $matchArray = explode( "@", $match['target'] );
-
-    // // On récupère nos 2 noms
-    // $controllerName = $matchArray[0]; // Nom du contrôleur
-    // $methodName     = $matchArray[1]; // Nom de la méthode
-
-    // // On instancie dynamiquement un controlleur dont le nom est stocké dans la variable $controllerName
-    // $controller = new $controllerName();
-
-    // // Puis on appelle dynamiquement sa méthode dont le nom est stocké dans la variable $methodName
-    // // On lui donne également toute variable passée dans l'URL se trouvant sous forme de tableau dans $match['params']
-    // $controller->$methodName( $match['params'] );
 
 //! DEBUT UTILISATION ALTO DISPATCHER
 
 $dispatcher = new Dispatcher($match, 'ErrorController@err404');
 $dispatcher->setControllersNamespace('Example\Controllers');
 $dispatcher->dispatch();
-
-//! FIN UTILISATION ALTO DISPATCHER
 
 //!========================================================
 //!                     RÉSUMÉ 
